@@ -1,5 +1,5 @@
 import React from 'react';
-import { StarIcon, HeartIcon } from '../common/Icons';
+import { StarIcon, HeartIcon } from '../common/Icon'; // Assuming you have these icons in a common directory
 
 const ProductCard = ({ course, onViewDetail }) => {
   const renderStars = (rating) => {

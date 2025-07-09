@@ -1,40 +1,44 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../components/layout/Header';  
 import Footer from '../components/layout/Footer';
+import ProductList from '../components/course/ProductList';
+import ProductModal from '../components/ui/ProductModal';
+import { mockCourses, priceFilters } from '../constants/data'; // Giả lập dữ liệu từ file data.js
+
 const HomePage = () => {
     const [searchTerm, setSearchTerm] = useState('');
   const [priceFilter, setPriceFilter] = useState('all'); // 'all', '<500', '500-1000', '>1000'
-//   const [displayedCourses, setDisplayedCourses] = useState(mockCourses);
+  const [displayedCourses, setDisplayedCourses] = useState(mockCourses);
   const [selectedCourse, setSelectedCourse] = useState(null);
 
-//   useEffect(() => {
-//     let filtered = mockCourses;
+  useEffect(() => {
+    let filtered = mockCourses;
 
-//     // Lọc theo từ khóa tìm kiếm
-//     if (searchTerm) {
-//       filtered = filtered.filter(course => 
-//         course.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-//         course.author.toLowerCase().includes(searchTerm.toLowerCase())
-//       );
-//     }
+    // Lọc theo từ khóa tìm kiếm
+    if (searchTerm) {
+      filtered = filtered.filter(course => 
+        course.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        course.author.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
 
-//     // Lọc theo giá
-//     switch (priceFilter) {
-//       case '<500':
-//         filtered = filtered.filter(course => course.price < 500000);
-//         break;
-//       case '500-1000':
-//         filtered = filtered.filter(course => course.price >= 500000 && course.price <= 1000000);
-//         break;
-//       case '>1000':
-//         filtered = filtered.filter(course => course.price > 1000000);
-//         break;
-//       default: // 'all'
-//         break;
-//     }
+    // Lọc theo giá
+    switch (priceFilter) {
+      case '<500':
+        filtered = filtered.filter(course => course.price < 500000);
+        break;
+      case '500-1000':
+        filtered = filtered.filter(course => course.price >= 500000 && course.price <= 1000000);
+        break;
+      case '>1000':
+        filtered = filtered.filter(course => course.price > 1000000);
+        break;
+      default: // 'all'
+        break;
+    }
     
-//     setDisplayedCourses(filtered);
-//   }, [searchTerm, priceFilter]);
+    setDisplayedCourses(filtered);
+  }, [searchTerm, priceFilter]);
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
@@ -47,13 +51,7 @@ const HomePage = () => {
   const handleCloseModal = () => {
     setSelectedCourse(null);
   };
-  
-  const priceFilters = [
-      { key: 'all', label: 'Tất cả' },
-      { key: '<500', label: '< 500K' },
-      { key: '500-1000', label: '500K - 1tr' },
-      { key: '>1000', label: '> 1tr' },
-  ];
+
 
   return (
     <div className="bg-gray-50 min-h-screen font-sans">
@@ -86,12 +84,12 @@ const HomePage = () => {
             </button>
         </div>
 
-        {/* <ProductList courses={displayedCourses} onViewDetail={handleViewDetail} /> */}
+        <ProductList courses={displayedCourses} onViewDetail={handleViewDetail} />
       </main>
 
       <Footer />
 
-      {/* <ProductModal course={selectedCourse} onClose={handleCloseModal} /> */}
+      <ProductModal course={selectedCourse} onClose={handleCloseModal} />
     </div>
   );
 }

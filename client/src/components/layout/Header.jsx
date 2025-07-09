@@ -7,7 +7,7 @@ const Header = ({ searchTerm, onSearchChange }) => {
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           <div className="flex-shrink-0">
-            <a href="#" className="text-2xl font-bold text-gray-800">N<span className="text-indigo-800">rael</span></a>
+            <a href="#" className="text-2xl font-bold text-gray-800">n<span className="text-indigo-800">raeL</span></a>
           </div>
           <div className="hidden md:block flex-1 max-w-xl mx-8">
             <div className="relative">
