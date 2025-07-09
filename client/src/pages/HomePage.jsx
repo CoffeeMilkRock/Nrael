@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Header from '../components/Header';  
-import Footer from '../components/Footer';
+import Header from '../components/layout/Header';  
+import Footer from '../components/layout/Footer';
 const HomePage = () => {
     const [searchTerm, setSearchTerm] = useState('');
   const [priceFilter, setPriceFilter] = useState('all'); // 'all', '<500', '500-1000', '>1000'
@@ -95,3 +95,4 @@ const HomePage = () => {
     </div>
   );
 }
+export default HomePage;    

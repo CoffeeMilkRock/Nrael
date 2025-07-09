@@ -1,3 +1,4 @@
+import React from 'react';
 const Footer = () => {
     return (
         <footer className="bg-gray-800 text-white mt-16">
@@ -28,3 +29,4 @@ const Footer = () => {
     </footer>
     );
 }
+export default Footer;
