@@ -1,7 +1,16 @@
 import React from 'react';
 import ProductCard from './ProductCard';
-
-const ProductList = ({ courses, onViewDetail }) => {
+import SkeletonCard from '../course/SkeletonCard';
+const ProductList = ({ courses, onViewDetail, onToggleFavorite, isLoading = false, loadingSkeleton = 3}) => {
+  if(isLoading){
+    return (
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {Array.from({ length: loadingSkeleton }).map((_, index) => (
+          <SkeletonCard key={index} />
+        ))}
+      </div>
+    );
+  }
   if (courses.length === 0) {
     return (
       <div className="text-center py-16">
@@ -13,7 +22,7 @@ const ProductList = ({ courses, onViewDetail }) => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
       {courses.map(course => (
-        <ProductCard key={course.id} course={course} onViewDetail={onViewDetail} />
+        <ProductCard key={course.id} course={course} onViewDetail={onViewDetail}/>
       ))}
     </div>
   );

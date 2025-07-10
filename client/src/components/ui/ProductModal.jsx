@@ -1,10 +1,18 @@
 import React from 'react';
 import { StarIcon, CloseIcon } from '../common/Icon'; // Assuming you have these icons in a common directory
-
+import {useFavorites} from '../../hooks/useFavorites';
+import { useToast } from '../../hooks/useToast';
 const ProductModal = ({ course, onClose }) => {
+    const { isFavorite, toggleFavorite } = useFavorites();
+    const { showToast } = useToast();
     if (!course) return null;
-
-    const renderStars = (rating) => {
+    const isFav = isFavorite(course.id);
+    const handleFavoriteClick = (e) => {
+        toggleFavorite(course.id);
+        showToast(isFav ? 'Đã bỏ yêu thích khóa học' : 'Đã thêm khóa học vào yêu thích');
+        e.stopPropagation(); // Ngăn sự kiện click lan ra thẻ cha
+    };
+        const renderStars = (rating) => {
         const stars = [];
         for (let i = 1; i <= 5; i++) {
             stars.push(<StarIcon key={i} filled={i <= rating} />);
@@ -14,7 +22,7 @@ const ProductModal = ({ course, onClose }) => {
 
     return (
         <div 
-            className="fixed inset-0 bg-black bg-opacity-60 z-50 flex justify-center items-center p-4"
+            className="fixed inset-0 bg-gray-400/60 z-50 flex justify-center items-center p-4"
             onClick={onClose}
         >
             <div 
@@ -39,6 +47,12 @@ const ProductModal = ({ course, onClose }) => {
                         <p className="text-3xl font-extrabold text-indigo-600 mb-4 sm:mb-0">
                             {new Intl.NumberFormat('vi-VN').format(course.price)}₫
                         </p>
+                         <button 
+                                onClick={handleFavoriteClick}
+                                className="p-3 rounded-full bg-gray-100 hover:bg-red-100 transition-colors"
+                            >
+                                <HeartIcon filled={isFav} className={isFav ? 'text-red-500' : 'text-gray-500'}/>
+                        </button>
                         <button className="w-full sm:w-auto bg-indigo-600 text-white font-bold py-3 px-8 rounded-full hover:bg-indigo-700 transition-all duration-300 transform hover:scale-105">
                             Thêm vào giỏ hàng
                         </button>

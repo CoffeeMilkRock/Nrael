@@ -38,7 +38,7 @@ export const mockCourses = [
     author: 'Phạm Văn Khoa',
     price: 1200000,
     level: 'Nâng cao',
-    rating: 4.9,
+    rating: 3.9,
     shortDescription: 'Phân tích và trực quan hóa dữ liệu với Pandas, Matplotlib.',
     longDescription: 'Đi sâu vào các thư viện mạnh mẽ nhất của Python cho khoa học dữ liệu. Khóa học bao gồm các kỹ thuật xử lý dữ liệu lớn, xây dựng mô hình machine learning đơn giản và tạo ra các biểu đồ trực quan, có ý nghĩa.',
     imageUrl: 'https://placehold.co/600x400/f1c40f/ffffff?text=Python',

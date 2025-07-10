@@ -1,22 +1,37 @@
 import React from 'react';
-import { StarIcon, HeartIcon } from '../common/Icon'; // Assuming you have these icons in a common directory
+import { StarIcon, HeartIcon } from '../common/Icon'; 
+import { useFavorites } from '../../hooks/useFavorites'; 
+import { useToast } from '../../hooks/useToast';
+const ProductCard = ({ course, onViewDetail}) => {
+    const {isFavorite, toggleFavorite} = useFavorites();
+    const { showToast } = useToast();
+    const isFav = isFavorite(course.id);
 
-const ProductCard = ({ course, onViewDetail }) => {
-  const renderStars = (rating) => {
-      const stars = [];
-      for (let i = 1; i <= 5; i++) {
-          stars.push(<StarIcon key={i} filled={i <= rating} />);
-      }
-      return stars;
-  };
+
+    const handleFavoriteClick = (e) => {
+        e.stopPropagation(); // Ngăn sự kiện click lan ra thẻ cha
+        toggleFavorite(course.id);
+        showToast(isFav ? 'Đã bỏ yêu thích khóa học' : 'Đã thêm khóa học vào yêu thích');
+    };
+    const renderStars = (rating) => {
+        const stars = [];
+        for (let i = 1; i <= 5; i++) {
+            stars.push(<StarIcon key={i} filled={i <= rating} />);
+        }
+        return stars;
+    };
 
   return (
     <div className="bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-all duration-300 ease-in-out group">
       <div className="relative">
         <img className="w-full h-48 object-cover" src={course.imageUrl} alt={course.name} />
-        <div className="absolute top-3 right-3 bg-white p-2 rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
-          <HeartIcon className="text-gray-400 hover:text-red-500" />
-        </div>
+        <button
+          onClick={handleFavoriteClick} 
+          className="absolute top-3 right-3 bg-white p-2 rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-all duration-300 transform hover:scale-110"
+          aria-label="Toggle Favorite"
+        >
+          <HeartIcon filled={isFav} className={isFav ? 'text-red-500' : 'text-gray-400'} />
+        </button>
         <span className="absolute top-3 left-3 bg-indigo-500 text-white text-xs font-semibold px-2 py-1 rounded-full">{course.level}</span>
       </div>
       <div className="p-5 flex flex-col">
